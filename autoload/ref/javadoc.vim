@@ -105,7 +105,7 @@ function! s:get_root_directories() "{{{2
         \ g:ref_javadoc_path . '/jdk/api/*/*/',
         \ ])
   return map(files,
-        \ 'substitute(v:val, "/\\+allclasses-\\(no\\)\\?frame\\.html$", "", "")')
+        \ 'substitute(v:val, "[\\/]\\+allclasses-\\(no\\)\\?frame\\.html$", "", "")')
 endfunction
 
 function! s:get_index_files(re_paths) " {{{2
@@ -117,7 +117,7 @@ function! s:get_index_files(re_paths) " {{{2
 endfunction
 function! s:get_javadoc_kinds() "{{{2
   return map(s:get_root_directories(),
-        \ 'substitute(v:val, "'.g:ref_javadoc_path.'/", "", "")')
+        \ 'substitute(v:val, '''.escape(g:ref_javadoc_path, '\').'[\\/]'', "", "")')
 endfunction
 function! s:find_file(query) " {{{2
   let kwd = substitute(a:query, '\.', '/', 'g')
